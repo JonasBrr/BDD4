@@ -1,0 +1,1 @@
+-- 1. Afficher tous les utilisateurs ayant emprunté au moins un équipement
