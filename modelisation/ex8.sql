@@ -32,11 +32,38 @@ INSERT INTO disponibilite (id_materiel, date_debut, date_fin) VALUES
   (3, CURRENT_DATE,                      CURRENT_DATE + INTERVAL '3 days'),
   (4, CURRENT_DATE + INTERVAL '1 day',  CURRENT_DATE + INTERVAL '7 days'),
   (5, CURRENT_DATE + INTERVAL '3 days', CURRENT_DATE + INTERVAL '10 days'),
-
   (6, CURRENT_DATE + INTERVAL '30 days',  CURRENT_DATE + INTERVAL '45 days'),
   (7, CURRENT_DATE + INTERVAL '40 days',  CURRENT_DATE + INTERVAL '75 days'),
   (8, CURRENT_DATE + INTERVAL '60 days',  CURRENT_DATE + INTERVAL '85 days'),
-
   (9,  CURRENT_DATE + INTERVAL '180 days', CURRENT_DATE + INTERVAL '210 days'),
   (10, CURRENT_DATE + INTERVAL '200 days', CURRENT_DATE + INTERVAL '230 days'),
   (8, CURRENT_DATE + INTERVAL '365 days', CURRENT_DATE + INTERVAL '395 days');
+
+-- voici la requête qui permet de respecter la consigne
+SELECT
+  CASE
+    WHEN COUNT(*) > 0 THEN 'Disponible'
+    ELSE 'Non disponible'
+  END AS statut_disponibilite
+FROM disponibilite
+WHERE id_materiel = 3
+  AND date_debut <= '2025-06-03'
+  AND date_fin >= '2025-06-04';
+
+
+-- 5. Implémentez une fonctionnalité permettant de gérer les disponibilités du matériel. Les administrateurs doivent pouvoir ajouter, modifier et supprimer des périodes de disponibilité pour chaque matériel.
+-- ajouter disponibilité
+INSERT INTO disponibilite (id_materiel, date_debut, date_fin)
+VALUES (3, '2025-07-01', '2025-07-10');
+
+-- modifier disponibilité
+UPDATE disponibilite
+SET date_debut = '2025-07-05',
+    date_fin = '2025-07-15'
+WHERE id_disponibilite = 4;
+
+-- supprimet disponibilité
+DELETE FROM disponibilite
+WHERE id_disponibilite = 4;
+
+-- 6. 
